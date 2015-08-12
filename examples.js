@@ -1,10 +1,10 @@
 // ==================================================
-//	loadMap
+//  loadMap
 // ==================================================
 loadMap('ymap', {
-	center: [57.153033, 65.534328],
-	zoom: 14,
-	controls: ['zoomControl']
+  center: [57.153033, 65.534328],
+  zoom: 14,
+  controls: ['zoomControl']
 }, function(map) {
   // Отключение скрола колесиком
   map.behaviors.disable('scrollZoom');
@@ -31,56 +31,56 @@ loadMap('ymap', {
     }
   );
 
-	$('.set-center').on('click', function() {
-		map.setCenter([12.433, 15.242]);
-	});
+  $('.set-center').on('click', function() {
+    map.setCenter([12.433, 15.242]);
+  });
 });
 
 
 // ==================================================
-//	Front carousel
+//  Front carousel
 // ==================================================
 var countSlide=$('.carousel li').length;
-	
+  
 $('.typepage-text-about').find(".jcarousel").each(function() {
-	var jcarouselContent = $(this);
+  var jcarouselContent = $(this);
         jcarouselContent        
-	        .jcarousel({
-	            wrap: 'circular',
-			    animation: {
-			        duration: 800,
-			        easing:   'easeInOutExpo'
-			}})
-			.jcarouselAutoscroll({
-	        	interval: 3000,
-		        target: '+=1',
-		        autostart: true
-		    });
+          .jcarousel({
+              wrap: 'circular',
+          animation: {
+              duration: 800,
+              easing:   'easeInOutExpo'
+      }})
+      .jcarouselAutoscroll({
+            interval: 3000,
+            target: '+=1',
+            autostart: true
+        });
 });
 
 if (countSlide>1) {
-	
-	var paginationContainer=$('.jcarousel-pagination');
-	var paginationHTML='';
-	var i=1;
-	while(i<=countSlide) {
-		paginationHTML+='<a href="#'+i+'"></a>';
-		i++;
-	}
-	paginationContainer.html(paginationHTML);
-	var width=document.body.offsetWidth;
-	if (width<1000)
-		width=1000;
-	$('.front-slider .jcarousel-front').css("width", width);
-	$('.front-slider .jcarousel-front li').css("width", width);	
+  
+  var paginationContainer=$('.jcarousel-pagination');
+  var paginationHTML='';
+  var i=1;
+  while(i<=countSlide) {
+    paginationHTML+='<a href="#'+i+'"></a>';
+    i++;
+  }
+  paginationContainer.html(paginationHTML);
+  var width=document.body.offsetWidth;
+  if (width<1000)
+    width=1000;
+  $('.front-slider .jcarousel-front').css("width", width);
+  $('.front-slider .jcarousel-front li').css("width", width); 
 
-	var jcarousel = $('.front-slider .jcarousel-front');
+  var jcarousel = $('.front-slider .jcarousel-front');
       
   jcarousel
-  	.on('jcarousel:reload jcarousel:create', function () {
- 			width = document.body.offsetWidth;
-  		if (width>=1000) {
-           	width = document.body.offsetWidth;
+    .on('jcarousel:reload jcarousel:create', function () {
+      width = document.body.offsetWidth;
+      if (width>=1000) {
+            width = document.body.offsetWidth;
         } else {
           width=1000;
         }
@@ -91,15 +91,15 @@ if (countSlide>1) {
       })        
     .jcarousel({
         wrap: 'circular',
-    		animation: {
-        	duration: 800,
-        	easing:   'easeInOutExpo'
-			}})
-		.jcarouselAutoscroll({
-    	interval: 7000,
+        animation: {
+          duration: 800,
+          easing:   'easeInOutExpo'
+      }})
+    .jcarouselAutoscroll({
+      interval: 7000,
       target: '+=1',
       autostart: true
-		});
+    });
 
   $('.jcarousel-control-prev')
     .on('jcarouselcontrol:active', function() {
