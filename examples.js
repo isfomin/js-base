@@ -20,6 +20,18 @@ loadMap('ymap', {
       '</div>' +
     '</div>');
 
+  // Создание коллекции с новым шаблоном
+  var objectCollection = new ymaps.GeoObjectCollection({}, {
+    iconLayout: objectContentLayout,
+    // Активная область
+    iconShape: {
+      type: 'Rectangle',
+      coordinates: [
+          [-68, -105], [69, 1]
+      ]
+    }
+  });
+
   // Создание метки с новым шаблоном 
   var placemark = new ymaps.Placemark([57.09833796, 65.60341243], 
     {
@@ -153,12 +165,9 @@ if (countSlide>1) {
     var config = {};
 
     if ( node.hasClass('js-jcarousel-front') ) {
-      updateCarouselWidth( node );
       
-      config = {
-      };
     }
-    if ( node.hasClass('js-jcarousel-main') ) {
+    if ( node.hasClass('js-jcarousel-basic') ) {
     } 
     // инициализация для других слайдров
 
@@ -167,12 +176,14 @@ if (countSlide>1) {
 
   /* Используя классы или айди, идентифицируем элементы и их конфигурируем. */
   function controlConfiguration( node ) {
-    if ( node.hasClass('js-jcarousel-front') || node.hasClass('js-jcarousel-main') ) {
+    if ( node.hasClass('js-jcarousel-front') ) {
+      attachButtons( node );
+      attachNavigation( node );
+    }
+    if ( node.hasClass('js-jcarousel-basic') ) {
       attachButtons( node );
     }
-    if ( node.hasClass('js-jcarousel-navigation') ) {
-      connectSliders( node.children('.carousel-scene'), $('.js-jcarousel-main .carousel-scene') );
-    }
+    
     // контролы для других слайдеров
   }
 
@@ -224,6 +235,21 @@ if (countSlide>1) {
       })
       .jcarouselControl({
         target: '+=1'
+      });
+  }
+
+  function attachNavigation( node ) {
+    node.find('.js-carousel-nav')
+      .on('jcarouselpagination:active', 'div', function() {
+          $(this).addClass('active');
+      })
+      .on('jcarouselpagination:inactive', 'div', function() {
+          $(this).removeClass('active');
+      })
+      .jcarouselPagination({
+        item: function(page, carouselItems) {
+          return '<div class="control-i"></div>';
+        }
       });
   }
 
