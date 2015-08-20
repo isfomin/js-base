@@ -9,6 +9,14 @@ loadMap('ymap', {
   // Отключение скрола колесиком
   map.behaviors.disable('scrollZoom');
 
+  // Пользовательская иконка
+  var placemark = new ymaps.Placemark([57.13729008, 65.55953149], {}, {
+    iconLayout: 'default#image',
+    iconImageHref: 'images/icon-placemark.png',
+    iconImageSize: [19, 28],
+    iconImageOffset: [-9, -28]
+  });
+
   // Шаблон метки
   var objectContentLayout = ymaps.templateLayoutFactory.createClass(
     '<div class="card card-label shadow shadow-card">' +
