@@ -1,3 +1,4 @@
+var Functions = {};
 // ========================================================
 //  $.exist
 // ========================================================
@@ -13,27 +14,36 @@ if (window.jQuery) {
 //  Библиотека: <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 //  Пример: example.js
 // ========================================================
-if (window.jQuery) {
-  function loadMap(id, options, callback) {
-    var map,
-        promise;
+(function($, exports) {
+  if (window.jQuery) {
+    function loadMap(id, options, callback) {
+      var map,
+          promise;
 
-    if ( !$('#' + id).exist() ) return;
+      if ( !$('#' + id).exist() ) return;
 
-    promise = (function() {   
-      var dfd = new $.Deferred();
+      promise = (function() {   
+        var dfd = new $.Deferred();
 
-      ymaps.ready(function() {
-        map = new ymaps.Map(id, options);
-        return dfd.resolve();
+        ymaps.ready(function() {
+          map = new ymaps.Map(id, options);
+          return dfd.resolve();
+        });
+
+        return dfd.promise();
+      })();
+
+      $.when( promise ).done(function() {
+        if (callback !== undefined)
+          callback(map); 
       });
+    }
 
-      return dfd.promise();
-    })();
+    function test() {
+      console.log("Test function");
+    }
 
-    $.when( promise ).done(function() {
-      if (callback !== undefined)
-        callback(map); 
-    });
+    exports.loadMap = loadMap;
+    exports.test = test;
   }
-}
+})(jQuery, Functions);

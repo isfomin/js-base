@@ -54,6 +54,10 @@ loadMap('ymap', {
   $('.set-center').on('click', function() {
     map.setCenter([12.433, 15.242]);
   });
+
+  ymap.geocode("Тюмень").then(function(res) {
+    var coords = res.geoObjects.get(0).geometry.getCoordinates();
+  }, function(err) {});
 });
 
 
@@ -403,5 +407,110 @@ $('.fancybox_html').each(function() {
 })(jQuery);
 
 // ==================================================
-//  ...
+//  Якоря. 
 // ==================================================
+$('.js-anchor-link').on('click', function() {
+    var target = $(this).attr('href');
+    $.scrollTo(target, 300, {offset: -heightFixedMenu});
+
+    return false;
+});
+
+// ==================================================
+//  FeedbackModule
+// ==================================================
+(function($, exports) {
+  $(function() {
+
+    $('#order-form, #order-form2').submit(function(e) {
+      
+      var form = $(this);
+
+      if (isEmptyForm(form[0].id)) {
+        formMessage(form, "Заполните форму!");
+        return false;
+      }
+
+      if (!isFilledForm(form[0].id)) {
+        formMessage(form, "Заполните обязательные поля!");
+        return false;
+      }
+
+      $.ajax({
+        url: form.attr('action'),
+        data: form.serialize(),
+      }).done(function(data) {
+        formMessage(form, data);
+        form[0].reset();
+      });
+
+      return false;
+    });
+
+    var timer;
+    function formMessage(form, msg) {
+      clearTimeout(timer);
+      var win = form.find('.form-window');
+      win.children().text(msg);
+      win.addClass('form-window-open');
+      timer = setTimeout(function() {
+        win.removeClass('form-window-open');
+      }, 5000);
+    }
+
+    function isEmptyForm(formId) {
+      // Поиск полей формы
+      var pairs = getFormData(formId);
+
+      // Проверка
+      var flag = true;
+      $.each(pairs, function(i, item) {
+        if (isRequired(item.name, formId) && (item.value != '')) {
+          flag = false;
+        }
+      });
+      return flag;
+    }
+
+    function isFilledForm(formId) {
+      var pairs = getFormData(formId);
+
+      var flag = true;
+      $.each(pairs, function(i, item) {
+        if (isRequired(item.name, formId) && (item.value == '')) {
+          flag = false;
+        }
+      });
+      return flag;
+    }
+
+    function getFormData(formId) {
+      var vars = $('#' + formId).serialize().split('&');
+      var pairs = [];
+      $.each(vars, function(i, item) {
+        var t = item.split('=');
+        pairs.push({
+          name: t[0],
+          value: t[1]
+        });
+      });
+      return pairs;
+    }
+})(jQuery, Feedback);
+
+// ==================================================
+//  FancyboxModule
+// ==================================================
+(function($, exports) {
+
+  $(function() {
+    $('.fancybox').fancybox({
+      padding:0
+    });
+
+    $('.fancybox-inline').fancybox({
+      hideOnContentClick: true
+    });
+  });
+
+})(jQuery, Fancybox);

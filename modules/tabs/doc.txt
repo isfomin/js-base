@@ -1,0 +1,30 @@
+## TABS ##
+Модуль вкладок
+
+Пример верстки:
+<ul class="tabs">
+  <li class="tabs-tab tabs-tab-active">
+    <a class="js-tab" data-prefix="tabs-tab" href="#tab1">Вкладка 1</a>
+  </li>
+  <li class="tabs-tab">
+    <a class="js-tab" data-prefix="tabs-tab" href="#tab2">Вкладка 2</a>
+  </li>
+</ul>
+<div class="js-content content content-tab content-active" prefix="content">
+  Новости
+</div>
+<div class="js-content content content-tab" prefix="content">
+  События
+</div>
+
+
+Свойства:
+Tabs.activeClass - Класс активной вкладки. (По умолчанию: .active)
+Tabs.element - Селектор переключателя вкладок. (По умолчанию: .js-tab)
+Tabs.elementContent - Седектор контента акладки. (По умочанию: .js-content)
+
+Методы:
+Tabs.init() - Активирует модуль, вешает события на элементы.
+
+Атрибуты:
+data-prefix - Префикс. Используется для изменения класса активной вкладки. (По умолчанию: не установлен)

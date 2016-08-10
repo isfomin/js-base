@@ -1,10 +1,12 @@
+var Module = {};
+
 // ==================================================
-//  ...
+//  MainModule
 // ==================================================
-(function($) {
+(function($, Functions) {
 
   $(function() {
-
+    
   });
 
-})(jQuery);
+})(jQuery, Functions);

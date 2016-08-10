@@ -1,0 +1,7 @@
+/* =content= */
+.content.content-tab {
+  display: none;
+}
+.content.content-tab.content-active {
+  display: block;
+}
