@@ -1,39 +1,37 @@
 var Tabs = {};
 
+Tabs.config = {
+  selector: {
+    tabs: '.j-tabs',
+    button: '.j-tabs .sf-tabs__button',
+    section: '.j-tabs .sf-tabs__section'
+  }
+};
+
 (function($, exports) {
-    var activeClass = 'active',
-        element = '.js-tab',
-        elementContent = '.js-content';
 
-    function init() {
-        $(element).on('click', function() {
-            var target = $(this).attr('href');
+  var selector = exports.config.selector;
 
-            $(element).each(function() {
-                var activeClass = getActiveClass(this);
-                $(this).parent().removeClass(activeClass);
-            });
-            $(elementContent).each(removeActiveClass);
+  function attachEvent() {
+    $(selector.button).on('click', function() {
+      console.log(this);
+      changeTab($(this));
+      return false;
+    });
+  }
 
-            $(this).parent().addClass( getActiveClass(this) );
-            $(target).addClass( getActiveClass(target) );
-            return false;
-        });
-    }
+  function changeTab($button) {
+    var $section = $( $button.attr('href') );
+    $(selector.button).removeClass('_active');
+    $(selector.section).removeClass('_show');
 
-    function getActiveClass(item) {
-        var prefix = $(item).data('prefix');
-        return prefix ? prefix + '-' + activeClass : activeClass;
-    }
+    $button.addClass('_active');
+    $section.addClass('_show');
+  }
 
-    function removeActiveClass() {
-        var activeClass = getActiveClass($(this));
-        $(this).removeClass(activeClass);
-    }
+  exports.init = function() {
+    attachEvent();
 
-    exports.activeClass = activeClass;
-    exports.element = element;
-    exports.elementContent = elementContent;
-    exports.init = init;
+  }
 
 })(jQuery, Tabs);
